@@ -37,7 +37,17 @@ class Corpus(object):
         if n_clusters >= self.vector_space.shape[1]:
             raise ValueError('Cannot ask for more clusters than there are items in the corpus.')
         model = KMeans(n_clusters=n_clusters)
-        return model.fit_predict(self.similarity_matrix)
+        cluster_membership = model.fit_predict(self.similarity_matrix)
+        cluster_membership_by_text = []
+
+        traversed = 0
+        for i, text in enumerate(self.texts):
+            cluster_membership_by_text.append(
+                cluster_membership[traversed:traversed + len(text.sections)]
+            )
+            traversed += len(text.sections)
+
+        return cluster_membership_by_text
 
     @staticmethod
     def _filter_vector_space(vector_space, min_occurrences):

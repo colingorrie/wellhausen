@@ -9,13 +9,28 @@
             .section {
                 margin-bottom: 1em;
             }
+            .one {
+                background-color: #b3e2cd;
+            }
+            .two {
+                background-color: #fdcdac;
+            }
+            .three {
+                background-color: #cbd5e8;
+            }
+            .four {
+                background-color: #f4cae4;
+            }
+            .five {
+                background-color: #e6f5c9;
+            }
         </style>
     </head>
     <body>
-        % for text in corpus.texts:
+        % for i, text in enumerate(corpus.texts):
             <div class="text">
-            % for section in text.sections:
-                <div class="section">
+            % for j, section in enumerate(text.sections):
+                <div class="section ${cluster_names[cluster_assignments[i][j]]}">
                     ${str(section)}
                 </div>
             % endfor

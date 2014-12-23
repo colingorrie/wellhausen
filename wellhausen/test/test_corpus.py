@@ -74,7 +74,8 @@ class CorpusWithMultipleTextsTest(unittest.TestCase):
         self.assertEqual(2, len(self.corpus.texts))
 
     def test_cluster(self):
-        self.assertEqual(6, len(self.corpus.cluster_membership(2)))
+        self.assertEqual(3, len(self.corpus.cluster_membership(2)[0]))
+        self.assertEqual(3, len(self.corpus.cluster_membership(2)[1]))
 
 
 class CorpusWithCutoffValueTest(unittest.TestCase):
@@ -86,7 +87,7 @@ class CorpusWithCutoffValueTest(unittest.TestCase):
         self.assertEqual((21, 3), self.corpus.vector_space.shape)
 
     def test_cluster(self):
-        self.assertEqual(3, len(self.corpus.cluster_membership(2)))
+        self.assertEqual(3, len(self.corpus.cluster_membership(2)[0]))
 
     def test_cluster_with_more_clusters_than_individuals(self):
         with self.assertRaises(ValueError):
