@@ -6,9 +6,10 @@ from mako.runtime import Context
 from mako.lookup import TemplateLookup
 
 
-mako_lookup = TemplateLookup(directories=[
-    os.path.join('..', 'wellhausen', 'templates')
-])
+mako_lookup = TemplateLookup(
+    directories=[os.path.join('..', 'wellhausen', 'templates')],
+    input_encoding='utf-8',
+)
 
 
 def render_html(corpus, cluster_assignments, filename):
