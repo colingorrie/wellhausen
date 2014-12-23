@@ -13,6 +13,9 @@ class Corpus(object):
         self.vector_space = pd.DataFrame()
         self.texts = []
 
+    def __str__(self):
+        return 'I am a corpus.'
+
     @property
     def similarity_matrix(self):
         if self.vector_space.shape[0] > 0 and self.vector_space.shape[1] > 0:
