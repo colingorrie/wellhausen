@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 
 from io import StringIO
-from mako.template import Template
+import os
 from mako.runtime import Context
 from mako.lookup import TemplateLookup
 
 
+mako_lookup = TemplateLookup(directories=[
+    os.path.join('..', 'wellhausen', 'templates')
+])
+
+
 def render_html(corpus, cluster_assignments, filename):
-    t = Template(filename="wellhausen/templates/html_out.mak")
+    t = mako_lookup.get_template('html_out.mak')
     buf = StringIO()
     ctx = Context(buf,
                   corpus=corpus,
