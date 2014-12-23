@@ -14,7 +14,7 @@ class Corpus(object):
         self.texts = []
 
     def __str__(self):
-        return 'I am a corpus.'
+        return '<div>{}</div>'.format('</div><div>'.join(str(text) for text in self.texts))
 
     @property
     def similarity_matrix(self):

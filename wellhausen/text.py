@@ -13,6 +13,9 @@ class Linguistic(object):
     def __init__(self, content=None):
         self.content = content
 
+    def __str__(self):
+        return str(self._flat_content)
+
     @property
     def characters(self):
         return [character for character in self._flat_content
@@ -42,7 +45,6 @@ class Collection(Linguistic):
 
 
 class Text(Collection):
-
     @classmethod
     def from_file(cls, fn):
         with open(fn, encoding='utf-8') as f:
