@@ -45,6 +45,9 @@ class Collection(Linguistic):
 
 
 class Text(Collection):
+    def __str__(self):
+        return '<div>{}</div>'.format('</div><div>'.join(str(section) for section in self.sections))
+
     @classmethod
     def from_file(cls, fn):
         with open(fn, encoding='utf-8') as f:
