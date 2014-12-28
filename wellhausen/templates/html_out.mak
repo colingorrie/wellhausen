@@ -29,6 +29,7 @@
     <body>
         % for i, text in enumerate(corpus.texts):
             <div class="text">
+            <h2>${text.title}</h2>
             % for j, section in enumerate(text.sections):
                 <div class="section ${cluster_names[cluster_assignments[i][j]]}">
                     ${str(section)}

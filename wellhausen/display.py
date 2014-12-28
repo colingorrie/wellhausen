@@ -11,7 +11,7 @@ mako_lookup = TemplateLookup(
     input_encoding='utf-8',
 )
 
-cluster_names = {0: 'one', 1: 'two', 2: 'three', 3: 'four', 4: 'five'}
+CLUSTER_NAMES = {0: 'one', 1: 'two', 2: 'three', 3: 'four', 4: 'five'}
 
 
 def render_html(corpus, cluster_assignments, filename):
@@ -20,7 +20,7 @@ def render_html(corpus, cluster_assignments, filename):
     ctx = Context(buf,
                   corpus=corpus,
                   cluster_assignments=cluster_assignments,
-                  cluster_names=cluster_names,
+                  cluster_names=CLUSTER_NAMES,
                   )
     t.render_context(ctx)
     with open(filename, "w", encoding='utf-8') as f:
