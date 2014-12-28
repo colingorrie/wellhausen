@@ -14,7 +14,7 @@ class CosineSimilarityTest(unittest.TestCase):
 
     def setUp(self):
         self.corpus = corpus.Corpus(min_occurrences=2)
-        self.corpus.add_text(text.Text(DDJ_START))
+        self.corpus.add_text(text.Text(DDJ_START, 'ddj_start'))
 
     def test_cosine_similarity(self):
         self.assertAlmostEqual(0.48,

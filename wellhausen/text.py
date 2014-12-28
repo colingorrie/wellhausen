@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import re
 
 import pandas as pd
@@ -45,10 +46,14 @@ class Collection(Linguistic):
 
 
 class Text(Collection):
+    def __init__(self, content, title):
+        super().__init__(content)
+        self.title = title
+
     @classmethod
     def from_file(cls, fn):
         with open(fn, encoding='utf-8') as f:
-            return cls(f.read())
+            return cls(f.read(), os.path.basename(fn))
 
     @property
     def sections(self):

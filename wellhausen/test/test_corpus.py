@@ -14,7 +14,7 @@ DDJ_END = '和大怨，必有餘怨﹔報怨以德，安可以為善？是以聖
 class CorpusWithImplicitBagOfWordsModelTest(unittest.TestCase):
     def setUp(self):
         self.corpus = corpus.Corpus()
-        self.corpus.add_text(text.Text(DDJ_START))
+        self.corpus.add_text(text.Text(DDJ_START, 'ddj_start'))
 
     def test_from_text(self):
         self.assertEqual((33, 3), self.corpus.vector_space.shape)
@@ -32,7 +32,7 @@ class CorpusWithImplicitBagOfWordsModelTest(unittest.TestCase):
 class CorpusWithBinaryTextModel(unittest.TestCase):
     def setUp(self):
         self.corpus = corpus.Corpus(text_model=model.BinaryModel())
-        self.corpus.add_text(text.Text(DDJ_START))
+        self.corpus.add_text(text.Text(DDJ_START, 'ddj_start'))
 
     def test_binary_vector_space(self):
         self.assertEqual(1, self.corpus.vector_space.loc['道', 0])
@@ -41,7 +41,7 @@ class CorpusWithBinaryTextModel(unittest.TestCase):
 class CorpusWithExplicitBagOfWordsModel(unittest.TestCase):
     def setUp(self):
         self.corpus = corpus.Corpus(text_model=model.BagOfWordsModel())
-        self.corpus.add_text(text.Text(DDJ_START))
+        self.corpus.add_text(text.Text(DDJ_START, 'ddj_start'))
 
     def test_binary_vector_space(self):
         self.assertEqual(3, self.corpus.vector_space.loc['道', 0])
@@ -66,8 +66,8 @@ class EmptyCorpusTest(unittest.TestCase):
 class CorpusWithMultipleTextsTest(unittest.TestCase):
     def setUp(self):
         self.corpus = corpus.Corpus()
-        self.corpus.add_text(text.Text(DDJ_START))
-        self.corpus.add_text(text.Text(DDJ_END))
+        self.corpus.add_text(text.Text(DDJ_START, 'ddj_start'))
+        self.corpus.add_text(text.Text(DDJ_END, 'ddj_end'))
 
     def test_multiple_texts_are_appended(self):
         self.assertEqual((56, 6), self.corpus.vector_space.shape)
@@ -81,7 +81,7 @@ class CorpusWithMultipleTextsTest(unittest.TestCase):
 class CorpusWithCutoffValueTest(unittest.TestCase):
     def setUp(self):
         self.corpus = corpus.Corpus(min_occurrences=2)
-        self.corpus.add_text(text.Text(DDJ_START))
+        self.corpus.add_text(text.Text(DDJ_START, 'ddj_start'))
 
     def test_from_text_with_cutoff(self):
         self.assertEqual((21, 3), self.corpus.vector_space.shape)

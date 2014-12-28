@@ -11,7 +11,7 @@ DDJ_3 = '不尚賢，使民不爭﹔不貴難得之貨，使民不為盜﹔不�
 
 class BagOfWordsModelTest(unittest.TestCase):
     def setUp(self):
-        self.ddj_3 = text.Text(DDJ_3)
+        self.ddj_3 = text.Text(DDJ_3, 'ddj_3')
         self.bow_model = model.BagOfWordsModel()
 
     def test_fit(self):
@@ -21,7 +21,7 @@ class BagOfWordsModelTest(unittest.TestCase):
 
 class BinaryModelTest(unittest.TestCase):
     def setUp(self):
-        self.ddj_3 = text.Text(DDJ_3)
+        self.ddj_3 = text.Text(DDJ_3, 'ddj_3')
         self.bin_model = model.BinaryModel()
 
     def test_fit(self):

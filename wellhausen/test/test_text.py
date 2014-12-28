@@ -21,6 +21,7 @@ class TextFromFileTest(unittest.TestCase):
 
     def test_content_matches_constructor(self):
         self.assertTrue(self.text.content.startswith('道可道，非常道'))
+        self.assertEqual('ddj.txt', self.text.title)
 
     def test_sections(self):
         self.assertEqual(81, len(self.text.sections))
@@ -35,10 +36,11 @@ class TextFromFileTest(unittest.TestCase):
 
 class TextFromStringTest(unittest.TestCase):
     def setUp(self):
-        self.text = text.Text(DDJ_START)
+        self.text = text.Text(DDJ_START, 'ddj_start')
 
     def test_content_matches_constructor(self):
         self.assertTrue(self.text.content.endswith('則無不治。'))
+        self.assertEqual('ddj_start', self.text.title)
 
     def test_sections(self):
         self.assertEqual(3, len(self.text.sections))
