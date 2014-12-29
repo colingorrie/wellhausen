@@ -20,5 +20,6 @@ def test():
     cluster_assignments = wenyan_corpus.cluster_membership(n_clusters=2)
     display.render_html(wenyan_corpus, cluster_assignments, 'output.html')
 
+
 if __name__ == '__main__':
     test()

@@ -15,8 +15,8 @@ class BagOfWordsModelTest(unittest.TestCase):
         self.bow_model = model.BagOfWordsModel()
 
     def test_fit(self):
-        self.assertEqual(40, len(self.bow_model.fit(self.ddj_3.characters)))
-        self.assertEqual(8, self.bow_model.fit(self.ddj_3.characters)['不'])
+        self.assertEqual(40, len(self.bow_model.fit(self.ddj_3.words)))
+        self.assertEqual(8, self.bow_model.fit(self.ddj_3.words)['不'])
 
 
 class BinaryModelTest(unittest.TestCase):
@@ -25,5 +25,5 @@ class BinaryModelTest(unittest.TestCase):
         self.bin_model = model.BinaryModel()
 
     def test_fit(self):
-        self.assertEqual(40, len(self.bin_model.fit(self.ddj_3.characters)))
-        self.assertEqual(1, self.bin_model.fit(self.ddj_3.characters)['不'])
+        self.assertEqual(40, len(self.bin_model.fit(self.ddj_3.words)))
+        self.assertEqual(1, self.bin_model.fit(self.ddj_3.words)['不'])

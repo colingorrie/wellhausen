@@ -21,10 +21,9 @@ class Corpus(object):
             raise ValueError
 
     def add_text(self, text):
-        # TODO: Add text labels by: pd.concat([vspace1, vspace2], keys=['text1', 'text2'])
         text_vector_space = pd.DataFrame()
         for i, section in enumerate(text.sections):
-            text_vector_space[i] = self.text_model.fit(section.characters)
+            text_vector_space[i] = self.text_model.fit(section.words)
         text_vector_space = self._filter_vector_space(text_vector_space, self.min_occurrences)
         self.vector_space = pd.concat([self.vector_space, text_vector_space], axis=1)\
             .fillna(value=0).astype('int')

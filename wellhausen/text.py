@@ -5,29 +5,27 @@ import re
 
 import pandas as pd
 import zhon.hanzi as hanzi
-
-
-HANZI_PUNCT = hanzi.punctuation + '﹔'
+import wellhausen.languages as languages
 
 
 class Linguistic(object):
-    def __init__(self, content=None):
+    def __init__(self, content, language=languages.ClassicalChinese):
         self.content = content
+        self.language = language
 
     def __str__(self):
         return str(self._flat_content)
 
     @property
-    def characters(self):
-        return [character for character in self._flat_content
-                if character not in HANZI_PUNCT]
+    def words(self):
+        return self.language.tokenize(self._flat_content)
 
     @property
     def bag_of_words(self):
-        char_set = set(self.characters)
+        word_set = set(self.words)
         counts = dict()
-        for char in char_set:
-            counts[char] = self.characters.count(char)
+        for word in word_set:
+            counts[word] = self.words.count(word)
         return pd.Series(counts)
 
     @property
@@ -40,14 +38,17 @@ class Sentence(Linguistic):
 
 
 class Collection(Linguistic):
+    def __init__(self, content, language=languages.ClassicalChinese):
+        super().__init__(content, language=language)
+
     @property
     def sentences(self):
-        return re.findall(hanzi.sentence, self._flat_content)
+        return self.language.split_sentences(self._flat_content)
 
 
 class Text(Collection):
-    def __init__(self, content, title):
-        super().__init__(content)
+    def __init__(self, content, title, language=languages.ClassicalChinese):
+        super().__init__(content, language)
         self.title = title
 
     @classmethod
