@@ -31,12 +31,13 @@
             <div class="text">
             <h2>${text.title}</h2>
             % for j, section in enumerate(text.sections):
-                <div class="section ${cluster_names[cluster_assignments[i][j]]}">
+                <div class="section ${cluster_names[clustering.memberships[i][j]]}">
                     ${str(section)}
                 </div>
             % endfor
             </div>
         % endfor
-        <p>Cluster assignments: ${cluster_assignments}</p>
+        <p>Cluster assignments: ${clustering.memberships}</p>
+        <p><strong>Purity: ${clustering.purity}</strong></p>
     </body>
 </html>

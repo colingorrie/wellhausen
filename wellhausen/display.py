@@ -14,12 +14,12 @@ mako_lookup = TemplateLookup(
 CLUSTER_NAMES = {0: 'one', 1: 'two', 2: 'three', 3: 'four', 4: 'five'}
 
 
-def render_html(corpus, cluster_assignments, filename):
+def render_html(corpus, clustering, filename):
     t = mako_lookup.get_template('html_out.mak')
     buf = StringIO()
     ctx = Context(buf,
                   corpus=corpus,
-                  cluster_assignments=cluster_assignments,
+                  clustering=clustering,
                   cluster_names=CLUSTER_NAMES,
                   )
     t.render_context(ctx)

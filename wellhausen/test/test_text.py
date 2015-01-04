@@ -173,4 +173,3 @@ class EnglishSentenceTest(unittest.TestCase):
     def test_bag_of_words(self):
         self.assertEqual(4, len(self.sentence.bag_of_words))
         self.assertEqual(2, self.sentence.bag_of_words['good'])
-

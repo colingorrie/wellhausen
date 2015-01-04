@@ -17,8 +17,8 @@ def test():
     wenyan_corpus.add_text(dao_de_jing)
 
     #print(wenyan_corpus.vector_space)
-    cluster_assignments = wenyan_corpus.cluster_membership(n_clusters=2)
-    display.render_html(wenyan_corpus, cluster_assignments, 'output.html')
+    clustering = wenyan_corpus.clustering(n_clusters=2)
+    display.render_html(wenyan_corpus, clustering, 'output.html')
 
 
 if __name__ == '__main__':

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from collections import Counter
 import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.metrics import pairwise_distances
@@ -29,7 +30,7 @@ class Corpus(object):
             .fillna(value=0).astype('int')
         self.texts.append(text)
 
-    def cluster_membership(self, n_clusters):
+    def clustering(self, n_clusters):
         """
         Implements simple chapter clustering algorithm described in section 3 of Akiva and Koppel (2013).
         """
@@ -37,17 +38,40 @@ class Corpus(object):
             raise ValueError('Cannot ask for more clusters than there are items in the corpus.')
         model = KMeans(n_clusters=n_clusters)
         cluster_membership = model.fit_predict(self.similarity_matrix)
-        cluster_membership_by_text = []
 
+        membership_by_text = []
         traversed = 0
         for i, text in enumerate(self.texts):
-            cluster_membership_by_text.append(
+            membership_by_text.append(
                 cluster_membership[traversed:traversed + len(text.sections)]
             )
             traversed += len(text.sections)
 
-        return cluster_membership_by_text
+        return Clustering(membership_by_text)
 
     @staticmethod
     def _filter_vector_space(vector_space, min_occurrences):
         return vector_space.loc[(vector_space.sum(axis=1) >= min_occurrences), ]
+
+
+class Clustering(object):
+    def __init__(self, memberships):
+        self.memberships = memberships
+
+    @property
+    def purity(self):
+        n_documents = len(self._flatten(self.memberships))
+        gold_standard = [self._get_majority_assignment(x) for x in self.memberships]
+        sum_majority_assignments = 0
+        for i, document in enumerate(self.memberships):
+            sum_majority_assignments += list(document).count(gold_standard[i])
+        return (1 / n_documents) * (sum_majority_assignments)
+
+    @staticmethod
+    def _get_majority_assignment(array):
+        return max(set(array), key=list(array).count)
+
+    @staticmethod
+    def _flatten(list_of_lists):
+        return [sub_list_item for sub_list in list_of_lists
+                for sub_list_item in sub_list]

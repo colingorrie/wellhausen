@@ -60,7 +60,7 @@ class EmptyCorpusTest(unittest.TestCase):
 
     def test_clusters(self):
         with self.assertRaises(ValueError):
-            self.corpus.cluster_membership(2)
+            self.corpus.clustering(2)
 
 
 class CorpusWithMultipleTextsTest(unittest.TestCase):
@@ -74,8 +74,8 @@ class CorpusWithMultipleTextsTest(unittest.TestCase):
         self.assertEqual(2, len(self.corpus.texts))
 
     def test_cluster(self):
-        self.assertEqual(3, len(self.corpus.cluster_membership(2)[0]))
-        self.assertEqual(3, len(self.corpus.cluster_membership(2)[1]))
+        self.assertEqual(3, len(self.corpus.clustering(2).memberships[0]))
+        self.assertEqual(3, len(self.corpus.clustering(2).memberships[1]))
 
 
 class CorpusWithCutoffValueTest(unittest.TestCase):
@@ -87,8 +87,28 @@ class CorpusWithCutoffValueTest(unittest.TestCase):
         self.assertEqual((21, 3), self.corpus.vector_space.shape)
 
     def test_cluster(self):
-        self.assertEqual(3, len(self.corpus.cluster_membership(2)[0]))
+        self.assertEqual(3, len(self.corpus.clustering(2).memberships[0]))
 
     def test_cluster_with_more_clusters_than_individuals(self):
         with self.assertRaises(ValueError):
-            self.corpus.cluster_membership(5)
+            self.corpus.clustering(5)
+
+
+class ClusteringTest(unittest.TestCase):
+    def setUp(self):
+        self.clustering = corpus.Clustering(
+            [[0, 0, 1, 0, 0, 0],
+             [0, 1, 1, 2, 1, 1],
+             [0, 2, 2, 2, 0],
+             ]
+        )
+
+    def test_constructor(self):
+        expected_memberships = [[0, 0, 1, 0, 0, 0],
+                                [0, 1, 1, 2, 1, 1],
+                                [0, 2, 2, 2, 0],
+                                ]
+        self.assertListEqual(expected_memberships, self.clustering.memberships)
+
+    def test_purity(self):
+        self.assertAlmostEqual(0.71, self.clustering.purity, delta=0.01)
