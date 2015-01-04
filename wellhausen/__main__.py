@@ -5,6 +5,7 @@ from wellhausen import model
 from wellhausen import corpus
 from wellhausen import text
 from wellhausen import display
+from wellhausen import languages
 
 
 def test():
@@ -21,5 +22,12 @@ def test():
     display.render_html(wenyan_corpus, clustering, 'output.html')
 
 
+# def composite_test():
+#     text_a = text.Text('Sentence A1. Sentence A2. Sentence A3.', 'text_a', language=languages.English)
+#     text_b = text.Text('Sentence B1. Sentence B2. Sentence B3.', 'text_b', language=languages.English)
+#     text_c = text.Text.composite_of(text_a, text_b, 4)
+#     print(text_c.content)
+
 if __name__ == '__main__':
     test()
+    # composite_test()

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from collections import Counter
 import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.metrics import pairwise_distances
